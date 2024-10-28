@@ -4,58 +4,9 @@ let elementoValor1 = document.getElementById('valor1');
 let elementoValor2 = document.getElementById('valor2');
 let elementoOperador = document.getElementById('operador');
 
-function definirNumeroDeCasas(lista) {
-    let tamanhoDaLista = lista.length;
-    let numeroDeCasas;
-
-    switch(tamanhoDaLista) {
-        case(1): {
-            numeroDeCasas = 1;
-            break;
-        }
-        case(2): {
-            numeroDeCasas = 2;
-            break;
-        }
-        case(3): {
-            numeroDeCasas = 3;
-            break;
-        }
-        default: {
-            numeroDeCasas = 4;
-            break; 
-        }
-    }
-
-    return numeroDeCasas;
-}
-
-const mostrarNumeroFloat = function(numero) {
-    // armazenar o valor em uma nova variável
-    let numeroFloat = numero;
-
-    // transformar o número em string e dividir  em uma lista
-    let lista = String(numero).split('');
-
-    let decimais = [];
-
-    // Retirar o ponto e o número inteiro da lista, deixando apenas as casa decimais 
-    lista.forEach((numero, i) => {
-        if (i > lista.indexOf('.')) {
-            decimais.push(numero);
-        }
-    })
-
-    // o numero de casas decimais vai variar a partir da função definirNumeroDeCasas
-    resultado.textContent = numeroFloat.toFixed(definirNumeroDeCasas(decimais));
-
-    // troca o ponto por vírgula 
-    resultado.textContent = resultado.textContent.replace(".", ",");
-}
-
 const mostrarResultado = function(calculo) {
-    // se a condição do operador ternário for falsa chama a função
-    Number.isInteger(calculo) ? resultado.textContent = calculo : mostrarNumeroFloat(calculo);
+    // formata o número de acordo com o local e defini quantas casas decimais mostrar no máximo 
+    resultado.textContent = "Resultado: " + calculo.toLocaleString('pt-BR', { maximumFractionDigits: 4 });
 }
 
 // OPERAÇÕES 
@@ -105,5 +56,5 @@ function usarCalculadora() {
     }
     
     // o usuário recebe uma mensagem de erro, se digitar um operador inválido
-    calculo === 'Operador inválido' ? resultado.textContent = calculo : mostrarResultado(calculo);
+    calculo === 'Operador inválido' ? resultado.textContent = "Resultado: " + calculo : mostrarResultado(calculo);
 }
